@@ -57,7 +57,9 @@ public class AllConversationAdapter extends RecyclerView.Adapter<AllConversation
 
         SMS SMS = data.get(position);
 
-        holder.senderContact.setText(SMS.getAddress());
+        holder.sms = SMS;
+
+        holder.senderContact.setText(Helpers.getName(context, SMS.getAddress()));
         holder.message.setText(SMS.getMsg());
 
         int color = generator.getColor(SMS.getAddress());
@@ -104,6 +106,7 @@ public class AllConversationAdapter extends RecyclerView.Adapter<AllConversation
         private TextView message;
         private TextView time;
         private RelativeLayout mainLayout;
+        private SMS sms;
 
         MyHolder(View itemView) {
             super(itemView);
@@ -125,7 +128,7 @@ public class AllConversationAdapter extends RecyclerView.Adapter<AllConversation
                 notifyItemChanged(getAdapterPosition());
 
                 itemClickListener.itemClicked(data.get(getAdapterPosition()).getColor(),
-                        senderContact.getText().toString(),
+                        sms.getAddress(),
                         data.get(getAdapterPosition()).getId(),
                         data.get(getAdapterPosition()).getReadState());
             }

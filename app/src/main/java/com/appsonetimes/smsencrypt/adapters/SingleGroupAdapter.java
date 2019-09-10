@@ -69,7 +69,8 @@ public class SingleGroupAdapter extends RecyclerView.Adapter<SingleGroupAdapter.
         long time = dataCursor.getLong(dataCursor.getColumnIndexOrThrow("date"));
         holder.time.setText(Helpers.getDate(time));
 
-        String name = dataCursor.getString(dataCursor.getColumnIndexOrThrow("address"));
+
+        String name = Helpers.getName(context, dataCursor.getString(dataCursor.getColumnIndexOrThrow("address")));
         String firstChar = String.valueOf(name.charAt(0));
 
         if (color == 0){
@@ -79,7 +80,6 @@ public class SingleGroupAdapter extends RecyclerView.Adapter<SingleGroupAdapter.
 
         TextDrawable drawable = TextDrawable.builder().buildRound(firstChar, color);
         holder.image.setImageDrawable(drawable);
-
 
     }
     @Override

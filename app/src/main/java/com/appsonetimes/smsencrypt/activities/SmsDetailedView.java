@@ -32,6 +32,7 @@ import com.appsonetimes.smsencrypt.constants.SmsContract;
 import com.appsonetimes.smsencrypt.receivers.DeliverReceiver;
 import com.appsonetimes.smsencrypt.receivers.SentReceiver;
 import com.appsonetimes.smsencrypt.services.UpdateSMSService;
+import com.appsonetimes.smsencrypt.utils.Helpers;
 
 public class SmsDetailedView extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, View.OnClickListener {
 
@@ -70,7 +71,7 @@ public class SmsDetailedView extends AppCompatActivity implements LoaderManager.
         from_reciever = intent.getBooleanExtra(Constants.FROM_SMS_RECIEVER, false);
 
         if (getSupportActionBar() != null)
-            getSupportActionBar().setTitle(contact);
+            getSupportActionBar().setTitle(Helpers.getName(this,contact));
 
         recyclerView =  findViewById(R.id.recyclerview);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
@@ -153,6 +154,7 @@ public class SmsDetailedView extends AppCompatActivity implements LoaderManager.
 
         if (view.getId() == R.id.btSend) {
             sendSMSMessage();
+            etMessage.setText("");
         }
     }
 

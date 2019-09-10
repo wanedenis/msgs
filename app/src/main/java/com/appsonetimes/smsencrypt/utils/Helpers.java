@@ -1,10 +1,16 @@
 package com.appsonetimes.smsencrypt.utils;
 
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.database.Cursor;
+import android.net.Uri;
+import android.provider.BaseColumns;
+import android.provider.ContactsContract;
+import android.util.Log;
 
 import com.appsonetimes.smsencrypt.constants.Constants;
 
@@ -17,13 +23,43 @@ import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
+import java.util.Calendar;import static android.content.ContentValues.TAG;
 
 /**
  * Created by R Ankit on 27-12-2016.
  */
 
 public class Helpers {
+
+    public static String getName(Context context, String address) {
+
+        if (address == null || address.isEmpty())
+            return address;
+
+        Cursor cursor;
+
+        Uri uri = Uri.withAppendedPath(ContactsContract.PhoneLookup.CONTENT_FILTER_URI, Uri.encode(address));
+        ContentResolver contentResolver = context.getContentResolver();
+
+        String name = address;
+
+        try {
+            cursor = contentResolver.query(uri,
+                    new String[]{BaseColumns._ID,
+                            ContactsContract.PhoneLookup.DISPLAY_NAME},
+                    null, null, null);
+
+            if ( cursor!= null && cursor.moveToNext()) {
+                name = cursor.getString(cursor.getColumnIndex(ContactsContract.Data.DISPLAY_NAME));
+                cursor.close();
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Failed to find name for address " + address);
+            e.printStackTrace();
+        }
+
+        return name;
+    }
 
     public static String getCertificateSHA1Fingerprint(Context context) {
         PackageManager pm = context.getPackageManager();

@@ -22,7 +22,6 @@
         android:layout_marginRight="@dimen/margin_imageview"
         android:layout_toRightOf="@id/smsImage"
         android:text="@string/title"
-        android:textAllCaps="true"
         android:textColor="@color/colorPrimaryText"
         android:textSize="16sp" />
 
