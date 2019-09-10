@@ -10,7 +10,8 @@
     <color name="strip_color">#dddddd</color>
     <color name="black">#212121</color>
     <color name="colorSecondaryText">#757575</color>
-    <color name="dark_two">#eeeeee</color>
+    <color name="dark_two">#ddd</color>
     <color name="colorPrimaryThird">#757575</color>
     <color name="grey">#eeeeee</color>
+    <color name="colorback">#82B1FF</color>
 </resources>
